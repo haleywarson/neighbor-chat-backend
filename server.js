@@ -7,11 +7,12 @@ const port = process.env.PORT || 9000;
 app.use(cors());
 app.use(express.json());
 
-require("./knexfile")[process.env.NODE_ENV] || "development";
-const database = require("knex")(connection);
+// MODELS
+const User = require("./models/user");
 
+// ROUTES
 app.get("/users", (request, response) => {
-  database("neighbors").then((users) => response.json(users));
+  User.query().then((users) => response.json(users));
 });
 
 app.listen(port, () => {
