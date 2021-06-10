@@ -2,8 +2,8 @@ const { Model } = require("objection");
 const database = require("../db");
 Model.knex(database);
 
-class User extends Model {
-  static tableName = "users";
+class Message extends Model {
+  static tableName = "messages";
 }
 
-module.exports = { User };
+module.exports = { Message };
