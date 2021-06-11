@@ -6,4 +6,4 @@ class User extends Model {
   static tableName = "users";
 }
 
-module.exports = User;
+module.exports = { User };

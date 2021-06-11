@@ -2,8 +2,6 @@ const knex = require("knex");
 const database_config = require("./knexfile").development;
 const database = knex(database_config);
 
-module.exports = database;
-
 // /* SOCKET DB */
 // const getSocketMessages = () => {
 //   return new Promise((resolve) => {
@@ -66,9 +64,10 @@ module.exports = database;
 //   );
 // };
 
-// module.exports = {
-//   getMessages,
-//   createMessage,
-//   getSocketMessages,
-//   createSocketMessage,
-// };
+module.exports = {
+  //   getMessages,
+  //   createMessage,
+  //   getSocketMessages,
+  //   createSocketMessage,
+  database,
+};

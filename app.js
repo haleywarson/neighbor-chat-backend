@@ -18,21 +18,26 @@ app.listen(port, () => {
 const socketPort = 8080;
 const server = require("http").createServer(app);
 const { Server } = require("socket.io");
+const { Message } = require("./models/message");
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: "*", // Allow cross-origin requests
     methods: ["GET", "POST"],
   },
 });
 
 io.on("connection", (socket) => {
   console.log("user connected");
-  socket.on("chat message", function (msg) {
+  socket.on("chat message", (msg) => {
     io.emit("chat message", msg);
     console.log("backend msg", msg);
+    // Message.query()
+    // createnewsocketmessage via post route
+    // emit most recent messages (10 most recent)
+    // .catch((err) => io.emit(err));
   });
   // close event when user disconnects from app
-  socket.on("disconnect", function () {
+  socket.on("disconnect", () => {
     console.log("user disconnected");
   });
 });
@@ -41,25 +46,11 @@ server.listen(socketPort, () => {
   console.log(`listening on ${socketPort}`);
 });
 
-// app.get("/", (req, res) => {
-//   res.sendFile(__dirname + "/index.html");
-// });
-
+//on login: connects, creates message, and emits top 10 messages
 // // sends out the 10 most recent messages from recent to old
 // const emitMostRecentMessages = () => {
-//   database
+//   Message.query()
 //     .getSocketMessages()
 //     .then((result) => io.emit("chat message", result))
 //     .catch(console.log);
 // };
-// // connects, creates message, and emits top 10 messages - on login
-// io.on("connection", (socket) => {
-//   console.log("a user connected");
-//   socket.on("chat message", (msg) => {
-//     database
-//       .createSocketMessage(JSON.parse(msg))
-//       .then((_) => {
-//         emitMostRecentMessages();
-//       })
-//       .catch((err) => io.emit(err));
-//   });
