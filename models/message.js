@@ -1,9 +1,9 @@
-// const { Model } = require("objection");
-// const database = require("../queries");
-// Model.knex(database);
+const { Model } = require("objection");
+const database = require("../queries");
+Model.knex(database);
 
-// class Message extends Model {
-//   static tableName = "messages";
-// }
+class Message extends Model {
+  static tableName = "messages";
+}
 
-// module.exports = Message;
+module.exports = { Message };

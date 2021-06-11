@@ -2,12 +2,13 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const port = process.env.PORT || 9000;
-const usersRouter = require("./routes/users");
+const { usersRouter } = require("./routes/users");
+const { messagesRouter } = require("./routes/messages");
 
 // MIDDLEWARE
 app.use(cors());
 app.use(express.json());
-app.use(usersRouter);
+app.use(usersRouter, messagesRouter);
 
 app.listen(port, () => {
   console.log(`listening on ${port}`);
