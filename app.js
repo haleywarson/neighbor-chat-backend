@@ -16,7 +16,6 @@ app.listen(port, () => {
 
 // SOCKETS
 const socketPort = 8000;
-// const { emit } = require("process");
 const server = require("http").createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server, {
@@ -28,10 +27,12 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   console.log("user connected");
-});
-
-io.on("new-message", (message) => {
-  io.emit(message);
+  socket.on("chat message", function (msg) {
+    io.emit("chat message", msg);
+  });
+  socket.on("disconnect", function () {
+    console.log("user disconnected");
+  });
 });
 
 server.listen(socketPort, () => {
@@ -40,12 +41,6 @@ server.listen(socketPort, () => {
 
 // app.get("/", (req, res) => {
 //   res.sendFile(__dirname + "/index.html");
-// });
-
-// io.on("connection", (socket) => {
-//   socket.on("chat message", (msg) => {
-//     io.emit("chat message", msg);
-//   });
 // });
 
 // // sends out the 10 most recent messages from recent to old
