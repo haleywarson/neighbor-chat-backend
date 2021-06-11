@@ -15,12 +15,12 @@ app.listen(port, () => {
 });
 
 // SOCKETS
-const socketPort = 8000;
+const socketPort = 8080;
 const server = require("http").createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000/",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
@@ -29,7 +29,9 @@ io.on("connection", (socket) => {
   console.log("user connected");
   socket.on("chat message", function (msg) {
     io.emit("chat message", msg);
+    console.log("backend msg", msg);
   });
+  // close event when user disconnects from app
   socket.on("disconnect", function () {
     console.log("user disconnected");
   });
@@ -50,7 +52,7 @@ server.listen(socketPort, () => {
 //     .then((result) => io.emit("chat message", result))
 //     .catch(console.log);
 // };
-// // connects, creates message, and emits top 10 messages
+// // connects, creates message, and emits top 10 messages - on login
 // io.on("connection", (socket) => {
 //   console.log("a user connected");
 //   socket.on("chat message", (msg) => {
@@ -61,9 +63,3 @@ server.listen(socketPort, () => {
 //       })
 //       .catch((err) => io.emit(err));
 //   });
-
-//   // close event when user disconnects from app
-//   socket.on("disconnect", () => {
-//     console.log("user disconnected");
-//   });
-// });
