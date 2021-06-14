@@ -5,7 +5,7 @@ const authenticate = (request, response, next) => {
   const { authorization } = request.headers;
   // if no auth header, send error
   if (!authorization) {
-    response.status(403).send({ error: "Bearer token must be present" });
+    response.status(403).send({ error: "Bearer token must be present." });
   } else {
     // pull out the token from Bearer token
     const token = authorization.split(" ")[1];
@@ -25,7 +25,7 @@ const authenticate = (request, response, next) => {
         });
     } catch (error) {
       // otherwise send error that token is bad
-      response.status(403).send({ error: "Invalid token" });
+      response.status(403).send({ error: "Invalid token." });
     }
   }
 };

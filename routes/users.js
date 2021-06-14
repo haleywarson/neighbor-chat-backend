@@ -34,7 +34,7 @@ router.post("/login", (request, response) => {
     .findOne({ username: user.username || "" })
     .then((existingUser) => {
       if (!existingUser) {
-        response.status(401).json({ error: "Invalid username or password" });
+        response.status(401).json({ error: "Invalid username/password." });
       } else {
         bcrypt
           .compare(user.password, existingUser.password_digest)
@@ -42,7 +42,7 @@ router.post("/login", (request, response) => {
             if (!isMatch) {
               response
                 .status(401)
-                .json({ error: "Invalid username or password" });
+                .json({ error: "Invalid username/password." });
             } else {
               const secret = process.env.AUTH_SECRET;
               const payload = { user_id: existingUser.id };
