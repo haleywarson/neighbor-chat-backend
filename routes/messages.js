@@ -1,12 +1,17 @@
 const express = require("express");
 const router = express.Router();
+const { authenticate } = require("./auth");
 const { Message } = require("../models/message");
 
-router.get("/messages", (request, response) => {
-  Message.query().then((messages) => response.json(messages));
+// Get messages
+router.get("/messages", authenticate, (request, response) => {
+  Message.query()
+    // .withGraphFetched("users")
+    .then((messages) => response.json(messages));
 });
 
-router.post("/messages", (request, response) => {
+// Create message
+router.post("/messages", authenticate, (request, response) => {
   const { message } = request.body;
   Message.query()
     .insert({

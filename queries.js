@@ -64,10 +64,9 @@ const database = knex(database_config);
 //   );
 // };
 
-module.exports = {
+module.exports =
   //   getMessages,
   //   createMessage,
   //   getSocketMessages,
   //   createSocketMessage,
-  database,
-};
+  database;
