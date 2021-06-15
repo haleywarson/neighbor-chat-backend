@@ -10,6 +10,14 @@ router.get("/users", authenticate, (request, response) => {
   User.query().then((users) => response.json(users));
 });
 
+// Get profile
+router.get("/profile", authenticate, (request, response) => {
+  const user = request.user;
+  User.query()
+    .findOne({ username: user.username || "" })
+    .then((user) => response.json(user));
+});
+
 // Sign up
 router.post("/users", (request, response) => {
   // grab user object from request
