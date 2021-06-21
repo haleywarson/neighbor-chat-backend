@@ -12,8 +12,10 @@ class User extends Model {
       join: {
         from: "users.id",
         through: {
-          from: "user",
+          from: "friendships.user_id",
+          to: "friendships.friend_id",
         },
+        to: "users.id",
       },
     },
   };

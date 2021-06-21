@@ -7,7 +7,9 @@ const jwt = require("jsonwebtoken");
 
 // Get users
 router.get("/users", authenticate, (request, response) => {
-  User.query().then((users) => response.json(users));
+  User.query()
+    .withGraphFetched("friends")
+    .then((users) => response.json(users));
 });
 
 // Get profile
