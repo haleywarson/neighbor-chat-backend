@@ -1,10 +1,11 @@
 exports.up = function (knex) {
-  "friendships",
-    (t) => {
-      t.increments();
-      t.references("user");
-      t.references("user_2");
-    };
+  return knex.schema.createTable("friendships", (t) => {
+    t.increments();
+    t.integer("user_id").references("users.id");
+    t.integer("friend_id").references("users.id");
+  });
 };
 
-exports.down = function (knex) {};
+exports.down = function (knex) {
+  return knex.schema.dropTableIfExists("friendships");
+};
