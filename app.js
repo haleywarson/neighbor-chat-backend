@@ -32,10 +32,6 @@ io.on("connection", (socket) => {
   socket.on("chat message", (msg) => {
     io.emit("chat message", msg);
     console.log("backend msg", msg);
-    // Message.query()
-    // createnewsocketmessage via post route
-    // emit most recent messages (10 most recent)
-    // .catch((err) => io.emit(err));
   });
 
   // close event when user disconnects from app
@@ -47,35 +43,3 @@ io.on("connection", (socket) => {
 server.listen(socketPort, () => {
   console.log(`listening on ${socketPort}`);
 });
-// --------------------------------------------------------------
-//on login: connects, creates message, and emits top 10 messages
-// // sends out the 10 most recent messages from recent to old
-// const emitMostRecentMessages = () => {
-//   Message.query()
-//     .getSocketMessages()
-//     .then((result) => io.emit("chat message", result))
-//     .catch(console.log);
-// };
-
-//--------------------------------------
-// Self referential many to many
-// create_users
-// t.increments
-// t.string username
-
-// create_users_friends
-// t.increments
-// t.integer('user_id').references('users.id')
-// t.integer('friend_id').references('users.id')
-
-// you cant just do t.references in node
-// seed to add users, then add userfriends
-
-// in objection -- set up many to many relationship
-// add in static relationMappings
-// friends - many to many relation, modelclass is user
-// join from users id to users id (through
-// //   from user id to friend id in userfriends))
-
-// User.query()
-// .withGraphFetched('friends') (because relation is called friends)

@@ -5,9 +5,7 @@ const { Message } = require("../models/message");
 
 // Get messages
 router.get("/messages", authenticate, (request, response) => {
-  Message.query()
-    // .withGraphFetched("users")
-    .then((messages) => response.json(messages));
+  Message.query().then((messages) => response.json(messages));
 });
 
 // Create message
