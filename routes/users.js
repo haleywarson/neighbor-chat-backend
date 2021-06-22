@@ -17,6 +17,7 @@ router.get("/profile", authenticate, (request, response) => {
   const user = request.user;
   User.query()
     .findOne({ username: user.username || "" })
+    .withGraphFetched("friends")
     .then((user) => response.json(user));
 });
 
@@ -27,6 +28,7 @@ router.patch("/users/:id", async (request, response) => {
   const newUser = await User.query()
     .findById(user.id)
     .patch(user)
+    .withGraphFetched("friends")
     .returning("*");
 
   return response.json(newUser);
@@ -41,6 +43,7 @@ router.post("/users", (request, response) => {
   bcrypt.hash(user.password, saltRounds).then((hashedPassword) => {
     User.query()
       .insert({ username: user.username, password_digest: hashedPassword })
+      .withGraphFetched("friends")
       .then((newUser) => response.status(201).json(newUser));
   });
 });
@@ -54,6 +57,7 @@ router.post("/login", (request, response) => {
     // see if user exists in db, and if not, throw error, and if so,
     // make sure password matches, then use secret to login + jwt to give token
     .findOne({ username: user.username || "" })
+    .withGraphFetched("friends")
     .then((existingUser) => {
       if (!existingUser) {
         response.status(401).json({ error: "Invalid username/password." });
