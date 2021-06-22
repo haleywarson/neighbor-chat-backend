@@ -1,40 +1,44 @@
 exports.seed = function (knex) {
   // Deletes ALL existing entries
-  return knex("users")
+  return knex("friendships")
     .del()
-    .then(function () {
-      // Inserts seed entries
-      return knex("users").insert([
-        {
-          username: "Haley",
-          photo:
-            "https://media-exp1.licdn.com/dms/image/C5603AQH0sZ3kwyYeQw/profile-displayphoto-shrink_200_200/0/1617032759430?e=1624492800&v=beta&t=RMscwoSIO9dbZUb6kuhw4TgeoRp-uXMf10etj4nBht0",
-          address: "1234 Lakewood St.",
-        },
-        {
-          username: "Tim",
-          photo:
-            "https://images.ctfassets.net/4zfc07om50my/5aKdNskkdDYCm1eozRSb9W/162a3b4ba27f4ceea52cef3953ee9f15/my-name-is-tim-warson-this-is-why-i-joined-aha.jpg?w=1200&h=632&q=50&fm=webp",
-          address: "1225 Lakewood St.",
-        },
-        {
-          username: "Ben",
-          photo:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ65X3BKKxoLf2PY6zeNFw7Zrd37LbYqqYNQ&usqp=CAU",
-          address: "1230 Lakewood St.",
-        },
-        {
-          username: "Jane",
-          photo:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6bpKjowDm6iE376n9ysD2U4YabQlp0iF-uA&usqp=CAU",
-          address: "1235 Lakewood St.",
-        },
-        {
-          username: "Rita",
-          photo:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0AB_wjPJpWvMo_saNOYvDzTRq4cbJ1MtAHg&usqp=CAU",
-          address: "1212 Lakewood St.",
-        },
-      ]);
+    .then(() => {
+      knex("users")
+        .del()
+        .then(function () {
+          // Inserts seed entries
+          return knex("users").insert([
+            {
+              username: "Ada",
+              photo:
+                "https://media.istockphoto.com/photos/portrait-of-gorgeous-young-laughing-woman-joy-and-happiness-picture-id1051999102?k=6&m=1051999102&s=612x612&w=0&h=BvHRHN9JJ4AbZiaY2gUj8Gu-REtTZqJpDomK-dCjwo8=",
+              address: "1234 Lakewood St.",
+            },
+            {
+              username: "Tim",
+              photo:
+                "https://media.istockphoto.com/photos/happy-smiling-man-looking-away-picture-id1158245623?k=6&m=1158245623&s=612x612&w=0&h=y0LbpRFMHMj_9YC_kpKvLYcijEunxP27KyjXBrDHcFg=",
+              address: "1225 Lakewood St.",
+            },
+            {
+              username: "Ben",
+              photo:
+                "https://media.istockphoto.com/photos/never-leave-home-without-your-confidence-picture-id1157185406?k=6&m=1157185406&s=612x612&w=0&h=HRgK4lfnj-np9qTLZ1WlChcWaJIuI7jyWhxH9bfbrUM=",
+              address: "1230 Lakewood St.",
+            },
+            {
+              username: "Jane",
+              photo:
+                "https://media.istockphoto.com/photos/beauty-portrait-of-happy-young-woman-picture-id660791130?k=6&m=660791130&s=612x612&w=0&h=c1A22ej-mh92yL8o9fzaEHp2hWtFoQCrC8vYnDaQ9eY=",
+              address: "1235 Lakewood St.",
+            },
+            {
+              username: "Rita",
+              photo:
+                "https://media.istockphoto.com/photos/happy-senior-woman-on-couch-picture-id1044149594?k=6&m=1044149594&s=612x612&w=0&h=z8eP7374oaQdF1CwLRTFPYNVgchjevMI1np8gz6BHo4=",
+              address: "1212 Lakewood St.",
+            },
+          ]);
+        });
     });
 };
