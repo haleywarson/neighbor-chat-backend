@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 // Get users
-router.get("/users", authenticate, (request, response) => {
+router.get("/users", (request, response) => {
   User.query()
     .withGraphFetched("friends")
     .then((users) => response.json(users));
@@ -18,6 +18,18 @@ router.get("/profile", authenticate, (request, response) => {
   User.query()
     .findOne({ username: user.username || "" })
     .then((user) => response.json(user));
+});
+
+// Patch route
+router.patch("/users/:id", async (request, response) => {
+  const user = request.body;
+
+  const newUser = await User.query()
+    .findById(user.id)
+    .patch(user)
+    .returning("*");
+
+  return response.json(newUser);
 });
 
 // Sign up

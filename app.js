@@ -5,11 +5,12 @@ const app = express();
 const port = process.env.PORT || 9000;
 const { usersRouter } = require("./routes/users");
 const { messagesRouter } = require("./routes/messages");
+const { friendshipsRouter } = require("./routes/friendships");
 
 // MIDDLEWARE
 app.use(cors());
 app.use(express.json());
-app.use(usersRouter, messagesRouter);
+app.use(usersRouter, messagesRouter, friendshipsRouter);
 
 app.listen(port, () => {
   console.log(`listening on ${port}`);
@@ -19,7 +20,6 @@ app.listen(port, () => {
 const socketPort = 8080;
 const server = require("http").createServer(app);
 const { Server } = require("socket.io");
-const { Message } = require("./models/message");
 const io = new Server(server, {
   cors: {
     origin: "*", // Allow cross-origin requests

@@ -15,7 +15,6 @@ router.post("/messages", authenticate, (request, response) => {
     .insert({
       text: message.text,
       username: message.username,
-      created_at: message.timestamp,
     })
     .then((newMessage) => response.status(201).json(newMessage));
 });
